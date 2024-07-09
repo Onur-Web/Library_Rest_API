@@ -22,6 +22,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -53,8 +54,12 @@ public class BookController {
         Publisher publisher = this.publisherService.get(bookSaveRequest.getPublisherId());
         saveBook.setPublisher(publisher);
 
-        Category category = this.categoryService.get(bookSaveRequest.getCategoryId());
-        saveBook.setCategories((List<Category>) category);
+        List<Category> categories = new ArrayList<>();
+        for (int categoryId : bookSaveRequest.getCategoryIds()) {
+            Category category = this.categoryService.get(categoryId);
+            categories.add(category);
+        }
+        saveBook.setCategories(categories);
 
         this.bookService.save(saveBook);
         return ResultHelper.created(this.modelMapper.forResponse().map(saveBook, BookResponse.class));
