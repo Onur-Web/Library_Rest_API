@@ -35,7 +35,13 @@ public class BookController {
     private final IPublisherService publisherService;
     private final ICategoryService categoryService;
 
-    public BookController(IBookService bookService, IModelMapperService modelMapper, IAuthorService authorService, IPublisherService publisherService, ICategoryService categoryService) {
+    public BookController(
+            IBookService bookService,
+            IModelMapperService modelMapper,
+            IAuthorService authorService,
+            IPublisherService publisherService,
+            ICategoryService categoryService
+    ) {
         this.bookService = bookService;
         this.modelMapper = modelMapper;
         this.authorService = authorService;
